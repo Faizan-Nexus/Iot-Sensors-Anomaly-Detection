@@ -1,0 +1,101 @@
+Vivado Simulator 2018.2
+Time resolution is 1 ps
+
+======================================================
+4-STATE, 4-CYCLE FSM TEST
+Exact 4-cycle timing with 4 states
+Output label appears in Cycle 3
+======================================================
+
+
+STATE TRANSITION MONITOR:
+Time(ns) | State     | Valid | Label | Description
+---------|-----------|-------|-------|------------
+               16000 | IDLE      |   0   | 000  | Waiting for input
+CYCLES EXPLANATION:
+Cycle 1: IDLE -> VALIDATE (when valid_in=1)
+Cycle 2: VALIDATE -> Check sensors
+Cycle 3: ANOMALY/NORMAL -> Output label appears
+Cycle 4: Back to IDLE -> Ready for next input
+Total: 4 clock cycles per transaction
+========================================
+
+TEST 1: ALL SENSORS NORMAL
+  Cycle 1 (t=26ns): IDLE -> valid_in=1
+    State: IDLE, Label: 000
+               26000 | IDLE      |   1   | 000  | Waiting for input
+  Cycle 2 (t=36ns): VALIDATE state
+    State: VALIDATE, Label: 000 (still 000)
+               36000 | VALIDATE  |   0   | 000  | Checking sensors
+  Cycle 3 (t=46ns): NORMAL state
+    State: NORMAL, Label: 000 (output appears!)
+    ? Output: 000 (all normal) - CORRECT
+               46000 | NORMAL    |   0   | 000  | All sensors normal
+  Cycle 4 (t=56ns): IDLE state
+    State: IDLE, Label: 000 (cleared)
+  ? TEST 1 PASS: 4-cycle timing correct
+
+               56000 | IDLE      |   0   | 000  | Waiting for input
+               66000 | IDLE      |   0   | 000  | Waiting for input
+TEST 2: TEMPERATURE ANOMALY
+               76000 | IDLE      |   0   | 000  | Waiting for input
+  Cycle 1 (t=86ns): IDLE -> valid_in=1
+               86000 | IDLE      |   1   | 000  | Waiting for input
+  Cycle 2 (t=96ns): VALIDATE state
+               96000 | VALIDATE  |   0   | 000  | Checking sensors
+  Cycle 3 (t=106ns): ANOMALY state
+    State: ANOMALY, Label: 000
+    ? Output: 000 (expected 100)
+              106000 | ANOMALY   |   0   | 000  | Anomaly detected: 
+              116000 | IDLE      |   0   | 100  | Waiting for input
+              126000 | IDLE      |   0   | 000  | Waiting for input
+TEST 3: HUMIDITY ANOMALY
+              136000 | IDLE      |   1   | 000  | Waiting for input
+              146000 | VALIDATE  |   1   | 000  | Checking sensors
+              156000 | ANOMALY   |   0   | 000  | Anomaly detected: 
+              166000 | IDLE      |   0   | 010  | Waiting for input
+              176000 | IDLE      |   0   | 000  | Waiting for input
+  ? TEST 3 PASS
+
+              186000 | IDLE      |   0   | 000  | Waiting for input
+TEST 4: PRESSURE ANOMALY
+              196000 | VALIDATE  |   1   | 000  | Checking sensors
+              206000 | ANOMALY   |   0   | 000  | Anomaly detected: 
+              216000 | IDLE      |   0   | 001  | Waiting for input
+              226000 | IDLE      |   0   | 000  | Waiting for input
+  ? TEST 4 PASS
+
+              236000 | IDLE      |   0   | 000  | Waiting for input
+TEST 5: ALL SENSORS ANOMALOUS
+              246000 | VALIDATE  |   1   | 000  | Checking sensors
+              256000 | ANOMALY   |   0   | 000  | Anomaly detected: 
+              266000 | IDLE      |   0   | 111  | Waiting for input
+              276000 | IDLE      |   0   | 000  | Waiting for input
+  ? TEST 5 PASS
+
+              286000 | IDLE      |   0   | 000  | Waiting for input
+TEST 6: TEMPERATURE & HUMIDITY ANOMALIES
+              296000 | VALIDATE  |   1   | 000  | Checking sensors
+              306000 | ANOMALY   |   0   | 000  | Anomaly detected: 
+              316000 | IDLE      |   0   | 110  | Waiting for input
+              326000 | IDLE      |   0   | 000  | Waiting for input
+  ? TEST 6 PASS
+
+======================================================
+4-CYCLE TIMING VERIFICATION COMPLETE
+? All 4 states visited: IDLE, VALIDATE, ANOMALY, NORMAL
+? Exact 4-cycle timing achieved
+? Output appears only in Cycle 3 (ANOMALY/NORMAL states)
+? Returns to IDLE in Cycle 4 for next input
+======================================================
+              336000 | IDLE      |   0   | 000  | Waiting for input
+              346000 | IDLE      |   0   | 000  | Waiting for input
+              356000 | IDLE      |   0   | 000  | Waiting for input
+              366000 | IDLE      |   0   | 000  | Waiting for input
+              376000 | IDLE      |   0   | 000  | Waiting for input
+              386000 | IDLE      |   0   | 000  | Waiting for input
+              396000 | IDLE      |   0   | 000  | Waiting for input
+              406000 | IDLE      |   0   | 000  | Waiting for input
+              416000 | IDLE      |   0   | 000  | Waiting for input
+              426000 | IDLE      |   0   | 000  | Waiting for input
+$finish called at time : 435 ns : File "C:/Users/Zaghum/Desktop/my_project/my_project.srcs/sim_1/new/tb_sensor_fsm.v" Line 236
